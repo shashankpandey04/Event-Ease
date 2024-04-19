@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/user", userRouter);
 
-const PORT = 8080;
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Listening to PORT: ${PORT}`);
 });

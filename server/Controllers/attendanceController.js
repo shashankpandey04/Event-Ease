@@ -6,6 +6,7 @@ const attendanceID = process.env.SHEET_ID || null;
 
 class AttendanceController {
   static async markAttendance(req, res) {
+    console.log(req.body);
     const { regNo } = req.body;
     let ts = Date.now();
     let date = new Date(ts);
@@ -40,6 +41,67 @@ class AttendanceController {
         await sheets.spreadsheets.values.update({
           spreadsheetId: attendanceID,
           range: `E${rowNumber}:E${rowNumber}`,
+          valueInputOption: "RAW",
+          requestBody: {
+            values: [[inTime]],
+          },
+        });
+
+        console.log(
+          "Attendance marked for: ",
+          sheet1Data[rowIndex][1],
+          " ",
+          regNo
+        );
+        return res
+          .status(200)
+          .json({ message: "Attendance marked successfully!" });
+      } else {
+        return res.status(404).json({ message: "Not Registered" });
+      }
+    } catch (error) {
+      console.error("Error checking and appending inTime:", error);
+      return res.status(500).json({ message: "Internal server error." });
+    }
+  }
+
+  static async markPostLunchAttendance(req, res) {
+
+    console.log(req);
+    const { regNo } = req.body;
+    let ts = Date.now();
+    let date = new Date(ts);
+    let hour = ("0" + date.getHours()).slice(-2);
+    let min = date.getMinutes();
+    const inTime = `${hour}:${min}`;
+
+    try {
+      const sheets = await attendanceAuthentication();
+      const sheet1Response = await sheets.spreadsheets.values.get({
+        spreadsheetId: attendanceID,
+        range: "A1:F4000",
+      });
+      const sheet1Data = sheet1Response.data.values || [];
+
+      // console.log(sheet1Data);
+      // Check if the registration number exists in the spreadsheet
+      const registrationExists = sheet1Data.some((row) => row[3] === regNo);
+      // console.log(registrationExists);
+
+      if (registrationExists) {
+        // Find the row number where the registration number is present
+        const rowIndex = sheet1Data.findIndex((row) => row[3] === regNo);
+        if (sheet1Data[rowIndex][5]) {
+          return res
+            .status(409)
+            .json({ message: "!! Attendance has been marked already" });
+        }
+        const rowNumber = rowIndex !== -1 ? rowIndex + 1 : -1; // Adjust the row number (Excel rows start from 1)
+
+        // Append the inTime to the same row where the registration number is found
+        await sheets.spreadsheets.values.update({
+          spreadsheetId: attendanceID,
+          range: `F${rowNumber}:F${rowNumber}`,
           valueInputOption: "RAW",
           requestBody: {
             values: [[inTime]],

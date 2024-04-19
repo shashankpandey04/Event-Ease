@@ -7,6 +7,7 @@ const router = express.Router();
 //PROTECTED ROUTES
 
 router.get("/sendEmails", EmailController.sendEmail);
-router.get("/markAttendance", attendanceController.markAttendance);
+router.post("/markAttendance", attendanceController.markAttendance);
+router.post("/markPostLunchAttendance", attendanceController.markPostLunchAttendance);
 
 export default router;
