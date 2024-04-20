@@ -53,24 +53,33 @@ export default function ScanQR() {
         });
     }
     function error(err) {
-      console.log(err);
-      window.alert(err);
-      window.location.reload();
+      // console.log(err);
+      // window.alert(err);
+      // window.location.reload();
     }
+    setScanResult("");
   }, []);
 
   return (
     <>
       <div className="flex justify-center h-screen items-center bg-gray-100 dark:bg-gray-800">
-        {scanResult ? ( {}
+        {scanResult ? ( // If scanResult is not empty
+          <div className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-lg">
+            <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+              Registration Number
+            </h1>
+            <p className="text-xl font-semibold text-gray-800 dark:text-gray-100">
+              {scanResult}
+            </p>
+          </div>
         ) : (
           <div
             id="reader"
-            className="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-lg"
+            className="bg-white dark:bg-gray-900 dark:text-purple p-4 rounded-lg shadow-lg"
           ></div>
         )}
       </div>
-      <div className="flex justify-center  items-center bg-gray-100 dark:bg-gray-800">
+      <div className="flex justify-center items-center bg-gray-100 dark:bg-gray-800">
         <input
           type="text"
           placeholder="Enter the Registration Number"
