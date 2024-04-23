@@ -1,17 +1,33 @@
-import React from "react";
-import Navbar from "./Navbar.jsx";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+const heroImages = [  // Array to store hero image URLs (replace with your image URLs)
+  "./src/assets/img1.jpg",
+  "./src/assets/img2.jpg",
+  "./src/assets/img3.jpg",
+];
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+  const [currentSlide, setCurrentSlide] = useState(0); // State for current slide
+
+  if (!localStorage.getItem("token")) {
+    navigate("/login");
+  }
+
   return (
     <>
-      <div className="bg-gray-100 min-h-screen">
+    <div>
+      </div>
+      <div className="min-h-screen grid items-center" style={{zIndex:10}}>
+
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-semibold text-gray-800 mb-4">
+          <h1 className="text-3xl  text-white mb-4">
             Dashboard
           </h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style={{zIndex:10}}>
             {/* Sample Cards */}
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h2 className="text-xl font-semibold text-gray-800 mb-4">
