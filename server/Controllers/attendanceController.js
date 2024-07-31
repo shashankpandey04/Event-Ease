@@ -6,7 +6,7 @@ const attendanceID = process.env.SHEET_ID || null;
 
 class AttendanceController {
   static async markAttendance(req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     const { regNo } = req.body;
     let ts = Date.now();
     let date = new Date(ts);
@@ -22,10 +22,10 @@ class AttendanceController {
       });
       const sheet1Data = sheet1Response.data.values || [];
 
-      // console.log(sheet1Data);
+      console.log(sheet1Data);
       // Check if the registration number exists in the spreadsheet
       const registrationExists = sheet1Data.some((row) => row[3] === regNo);
-      // console.log(registrationExists);
+      console.log(registrationExists);
 
       if (registrationExists) {
         // Find the row number where the registration number is present

@@ -126,10 +126,11 @@ function App() {
        >
         <Routes>
           <Route path="/login" Component={Login} />
-          <Route path="/" Component={Dashboard} />
+          <Route path="/" Component={Login} />
           <Route path="/mailer" Component={Mailer} />
           <Route path="/scanner" Component={ScanQR} />
           <Route path="/test" Component={test} />
+          <Route path="/dashboard" Component={Dashboard} />
           <Route path="*" element={<div className="text-white pt-10" >Error 404: URL is incorrect</div>} />
         </Routes>
       </div>

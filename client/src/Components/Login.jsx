@@ -11,6 +11,11 @@ export default function Login() {
 
   const handleSubmit = () => {
     console.log(form);
+    if(form.username === "admin" && form.password === "admin"){
+      navigate("/dashboard");
+    } else {
+      alert("Invalid Credentials");
+    }
   }
 
 

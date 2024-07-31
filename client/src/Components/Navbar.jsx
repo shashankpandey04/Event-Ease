@@ -22,8 +22,8 @@ export default function Navbar() {
       <nav className="bg-[#312d39] fixed z-50 w-full h-20 flex justify-between items-center px-4">
         <div className="flex-shrink-0 flex items-center">
           <a
-            className="text-[#8772b8] text-3xl md:text-3xl font-bold sm:text-lg cursor-pointer hover:cursor-pointer"
-            onClick={() => handleNavigate("/")}
+            className="text-white pl-5 text-3xl md:text-3xl font-bold sm:text-lg cursor-pointer hover:cursor-pointer"
+            onClick={() => handleNavigate("/dashboard")}
           >
             EventEase
           </a>
@@ -51,7 +51,7 @@ export default function Navbar() {
 
         {/* Menu items */}
         <div
-          className={`sm:flex flex-col sm:flex-row items-center sm:space-x-4 ${
+          className={`sm:flex pr-5 flex-col sm:flex-row items-center sm:space-x-4 ${
             isMenuOpen ? "block" : "hidden"
           }`}
           style={{
@@ -63,7 +63,7 @@ export default function Navbar() {
             <li>
               <a
                 className={`text-[white] hover:bg-[#6a50a7] ${
-                  !isMenuOpen ? "pt-24" : ""
+                  !isMenuOpen ? "" : ""
                 } px-3 py-2 rounded-md font-medium cursor-pointer hover:cursor-pointer block sm:inline`}
                 onClick={() => handleNavigate("/scanner")}
               >

@@ -49,7 +49,7 @@ export default function ScanQR() {
         })
         .catch(function (error) {
           console.log(error);
-          window.alert("error! Scan again");
+          window.alert("Error Update Conflict - Attendance Marked already!");
         });
       window.location.reload(); // Reload to reset state (optional)
     }
